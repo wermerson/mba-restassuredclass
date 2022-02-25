@@ -11,3 +11,7 @@
 allure-report/
 
 allure-results/
+
+.allure/
+
+.idea

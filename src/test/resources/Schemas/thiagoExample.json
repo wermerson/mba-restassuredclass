@@ -1,64 +1,80 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "",
-  "type": "object",
-  "properties": {
-    "data": {
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Welcome8",
+  "definitions": {
+    "Welcome8": {
       "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data"
+        },
+        "support": {
+          "$ref": "#/definitions/Support"
+        }
+      },
+      "required": [
+        "data",
+        "support"
+      ],
+      "title": "Welcome8"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "id": {
-          "type": "number"
+          "type": "integer"
         },
         "email": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "first_name": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "last_name": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         },
         "avatar": {
           "type": "string",
-          "minLength": 1
+          "format": "uri",
+          "qt-uri-protocols": [
+            "https"
+          ],
+          "qt-uri-extensions": [
+            ".jpg"
+          ]
         }
       },
       "required": [
-        "id",
+        "avatar",
         "email",
         "first_name",
-        "last_name",
-        "avatar"
-      ]
+        "id",
+        "last_name"
+      ],
+      "title": "Data"
     },
-    "ad": {
+    "Support": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "company": {
-          "type": "string",
-          "minLength": 1
-        },
         "url": {
           "type": "string",
-          "minLength": 1
+          "format": "uri",
+          "qt-uri-protocols": [
+            "https"
+          ]
         },
         "text": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         }
       },
       "required": [
-        "company",
-        "url",
-        "text"
-      ]
+        "text",
+        "url"
+      ],
+      "title": "Support"
     }
-  },
-  "required": [
-    "data",
-    "ad"
-  ]
+  }
 }

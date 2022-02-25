@@ -6,68 +6,85 @@
 	<artifactId>restAssured-class</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<aspectj.version>1.8.10</aspectj.version>
+		<java-compiler.version>17</java-compiler.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<allure.results.directory>allure-results</allure.results.directory>
+		<allure.report.directory>allure-report</allure.report.directory>
+
+		<restassured.version>4.4.0</restassured.version>
+		<junit.jupiter.version>5.8.2</junit.jupiter.version>
+		<assertj.version>3.21.0</assertj.version>
+		<slf4j.version>2.0.0-alpha1</slf4j.version>
+		<allure.version>2.15.0</allure.version>
+		<allure-maven.version>2.10.0</allure-maven.version>
+		<allure.cmd.download.url>
+			https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
+		</allure.cmd.download.url>
 	</properties>
+
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.6.2</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>3.0.0</version>
-			<scope>test</scope>
+			<version>${restassured.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>json-schema-validator</artifactId>
-			<version>3.2.0</version>
+			<version>${restassured.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
-			<artifactId>allure-junit4</artifactId>
-			<version>2.13.3</version>
+			<artifactId>allure-attachments</artifactId>
+			<version>${allure.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-junit5</artifactId>
+			<version>${allure.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>2.22.2</version>
+			</plugin>
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>${allure-maven.version}</version>
 				<configuration>
-					<testFailureIgnore>false</testFailureIgnore>
-					<argLine>
-						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-					</argLine>
-					<properties>
-						<property>
-							<name>listener</name>
-							<value>io.qameta.allure.junit4.AllureJunit4</value>
-						</property>
-					</properties>
+					<reportVersion>${allure.version}</reportVersion>
+					<allureDownloadUrl>
+						${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip
+					</allureDownloadUrl>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjweaver</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
