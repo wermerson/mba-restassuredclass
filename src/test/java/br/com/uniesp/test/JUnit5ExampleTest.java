@@ -74,7 +74,7 @@ class JUnit5ExampleTest {
 
     // by Wermerson
     @Test
-    @DisplayName("Teste PUT delete User 2")
+    @DisplayName("Teste DELETE User 2")
     void methodDelete() {
         given().log().all()
                 .when()
@@ -91,12 +91,12 @@ class JUnit5ExampleTest {
         //UserRegister userRegister = new UserRegister("wermersonwca@gmail.com","123");
 
         given().log().all()
-                .contentType(ContentType.JSON)
-                .body(userRegister)
-                .when()
-                .post("api/register")
-                .then().statusCode(HttpStatus.SC_OK)
-                .and().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schemas/userRegister.json"))
-                .log();
+            .contentType(ContentType.JSON)
+            .body(userRegister)
+            .when()
+            .post("api/register")
+            .then().statusCode(HttpStatus.SC_OK)
+            .and().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schemas/userRegister.json"))
+            .log();
     }
 }
