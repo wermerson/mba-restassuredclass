@@ -2,6 +2,7 @@ package br.com.uniesp.test;
 
 import br.com.uniesp.entidate.PessoaRequest;
 import br.com.uniesp.entidate.PessoaResponse;
+import br.com.uniesp.entidate.UserRegister;
 import io.qameta.allure.Allure;
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -19,10 +20,12 @@ class JUnit5ExampleTest {
     void configuraApi() {
         baseURI = 	"https://reqres.in/";
     }
+
     @Test
     void justAnExample() {
 
     }
+
     @Test
     @DisplayName("esse teste faz isso")
     @Tag("E2E")
@@ -36,10 +39,9 @@ class JUnit5ExampleTest {
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schemas/thiagoExample.json"))
                 .log();
     }
+
     @Test
     void methodPost() {
-
-//        basePath = "/api/users";
         given()
                 .when()
                 .get("api/users/2")
@@ -47,6 +49,7 @@ class JUnit5ExampleTest {
                 .statusCode(HttpStatus.SC_OK)
                 .log().all();
     }
+
     @Test
     void methodPostFull() {
         PessoaRequest pessoaRequest = new PessoaRequest("thiago","QA");
@@ -67,5 +70,31 @@ class JUnit5ExampleTest {
         Assertions.assertNotNull(as.getId());
         Assertions.assertEquals(pessoaRequest.getNome(), as.getNome());
         Assertions.assertEquals(pessoaRequest.getJob(), as.getJob());
+    }
+
+    @Test
+    @DisplayName("Esse teste deleta o user 2")
+    void methodDelete() {
+        given().log().all()
+                .when()
+                .delete("api/users/2")
+                .then().statusCode(HttpStatus.SC_NO_CONTENT)
+                .log();
+    }
+
+    @Test
+    @DisplayName("Esse teste verifica se o registro de usuário está sendo feito com sucesso.")
+    void methodUserRegister() {
+        UserRegister userRegister = new UserRegister("charles.morris@reqres.in","pistol");
+        //UserRegister userRegister = new UserRegister("wermersonwca@gmail.com","123");
+
+        given().log().all()
+                .contentType(ContentType.JSON)
+                .body(userRegister)
+                .when()
+                .post("api/register")
+                .then().statusCode(HttpStatus.SC_OK)
+                .and().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schemas/userRegister.json"))
+                .log();
     }
 }
