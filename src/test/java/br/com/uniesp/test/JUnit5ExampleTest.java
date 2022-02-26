@@ -72,8 +72,9 @@ class JUnit5ExampleTest {
         Assertions.assertEquals(pessoaRequest.getJob(), as.getJob());
     }
 
+    // by Wermerson
     @Test
-    @DisplayName("Esse teste deleta o user 2")
+    @DisplayName("Teste PUT delete User 2")
     void methodDelete() {
         given().log().all()
                 .when()
@@ -82,8 +83,9 @@ class JUnit5ExampleTest {
                 .log();
     }
 
+    // by Wermerson
     @Test
-    @DisplayName("Esse teste verifica se o registro de usuário está sendo feito com sucesso.")
+    @DisplayName("Teste verifica se o registro de usuário está sendo feito com sucesso.")
     void methodUserRegister() {
         UserRegister userRegister = new UserRegister("charles.morris@reqres.in","pistol");
         //UserRegister userRegister = new UserRegister("wermersonwca@gmail.com","123");
